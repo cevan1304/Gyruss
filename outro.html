@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>GYRUSS • Aurora — Outro</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#040911;color:#e8f6ff;font-family:system-ui,sans-serif}body{height:100dvh}canvas{display:block;width:100%;height:100%;touch-action:manipulation}button{font:inherit;color:inherit;border:1px solid #ffffff30;background:#101e2ce8;padding:11px 16px;border-radius:9px;cursor:pointer;min-height:44px;backdrop-filter:blur(10px)}button:hover{background:#233d51}button:focus-visible,input:focus-visible{outline:2px solid #64efff;outline-offset:4px}button:disabled{opacity:.45;cursor:wait}.brand{position:fixed;left:max(22px,env(safe-area-inset-left));top:max(15px,env(safe-area-inset-top));pointer-events:none;letter-spacing:.25em;font-weight:750;font-size:13px;color:#acc6d8}.brand span{color:#4fdff3}.top{display:flex;gap:5px;position:fixed;right:max(15px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top))}.bar{position:fixed;bottom:max(14px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px;background:#030911c9;border:1px solid #ffffff16;border-radius:14px;max-width:calc(100% - 24px)}input{width:min(24vw,260px);accent-color:#56e0f1;cursor:pointer}#time{font-variant-numeric:tabular-nums;font-size:12px;white-space:nowrap;color:#a5bfd0}.cover{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(ellipse,#071827d9,#02050bee);text-align:center;padding:25px}.cover[hidden]{display:none}.eyebrow{font-size:11px;letter-spacing:.4em;color:#66e4f4}h1{font-size:clamp(40px,10vw,94px);letter-spacing:.16em;margin:10px 0 3px;font-weight:850}h2{margin:0 0 28px;letter-spacing:.4em;font-weight:400;font-size:14px;color:#bacbd8}.primary{background:#67e7f5;color:#052030;border:0;font-weight:750;min-width:200px}.primary:hover{background:#a1f6ff}.note{font-size:12px;color:#93aabb;line-height:1.8}#message{position:fixed;top:70px;left:15px;right:15px;text-align:center;color:#cef8ff;font-size:13px;pointer-events:none}body.cinema .brand{opacity:0}@media(max-width:550px){.brand{top:65px}.top{left:14px;right:14px;justify-content:flex-end}.bar{gap:5px;padding:6px}button{padding:10px 11px;font-size:12px}input{width:20vw}.brand{font-size:11px;left:14px}#time{font-size:10px}}
+.bar,.brand,#mute,#cover{display:none!important}#resumeOutro[hidden]{display:none}#message{top:65px}.top{z-index:10}
+</style></head><body>
+<audio id="music" preload="metadata" src="assets/outro-music-3dc20cb770.mp3"></audio><canvas id="stage" aria-label="Comic outro: the pilot returns and Earth celebrates its rescue"></canvas>
+<div class="brand">GYRUSS <span>/ AURORA</span></div><div class="top"><button id="skipOutro">Skip outro</button><button id="resumeOutro" hidden>Resume</button><button id="mute" aria-label="Mute" aria-pressed="false">Sound: on</button> <button id="full">Fullscreen</button></div>
+<div class="bar"><button id="toggle" disabled>Pause</button><button id="restart" disabled aria-label="Play from the beginning">Replay</button><input id="seek" type="range" min="0" max="45" step="0.05" value="0" aria-label="Outro time" disabled><span id="time">0:00 / 0:45</span></div>
+<div class="cover" id="cover"><div><div class="eyebrow">EARTH IS SAFE</div><h1>GYRUSS</h1><h2>A U R O R A</h2><button class="primary" id="start" disabled>Loading images…</button><p class="note" id="load">0 / 6</p><p class="note">The hero returns · 45 seconds<br>Landscape only</p></div></div><div id="message" role="status"></div>
+<script>
+'use strict';
+const SOURCES=["assets/outro-01-072b4ae3ce.webp", "assets/outro-02-901f760277.webp", "assets/outro-03-ed8116a337.webp", "assets/outro-04-a04e12cbdb.webp", "assets/outro-05-d75cd008e9.webp", "assets/outro-06-e4ab0f952a.webp"];
+const names=['Earth is safe','Aurora returns','Welcome at the hangar','Return to mission control','Victory celebration','Peace after the battle'];
+const $=id=>document.getElementById(id),c=$('stage'),ctx=c.getContext('2d',{alpha:false});
+const music=$('music');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const duration=45,interval=7,angles=[-3.4,3.7,-2.3,4.1,-4.2,2.6,-2.8,3.4,-3.1,1.8];
+let outroRun=0,outroWanted=false,outroMuted=false,outroDone=false;
+let images=[],W=0,H=0,t=0,playing=false,ready=false,started=false,last=0;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>1-Math.pow(1-clamp(x),3),smooth=x=>{x=clamp(x);return x*x*(3-2*x)};
+function resize(){W=innerWidth;H=innerHeight;const d=Math.min(devicePixelRatio||1,2);c.width=Math.round(W*d);c.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);draw()}
+function photo(i,cx,cy,w,angle,scale=1,alpha=1,border=1,fall=0){const im=images[i];if(!im)return;const h=w*9/16,b=w*.011*border;ctx.save();ctx.globalAlpha=alpha;ctx.translate(cx,cy);ctx.rotate(angle*Math.PI/180);ctx.scale(scale,scale);ctx.shadowColor='rgba(0,0,0,.65)';ctx.shadowBlur=18+fall*32;ctx.shadowOffsetY=8+fall*22;ctx.fillStyle='#f4f1e9';ctx.fillRect(-w/2-b,-h/2-b,w+2*b,h+2*b);ctx.shadowColor='transparent';ctx.drawImage(im,-w/2,-h/2,w,h);ctx.restore()}
+function draw(){ctx.fillStyle='#040911';ctx.fillRect(0,0,W,H);let bg=ctx.createRadialGradient(W*.5,H*.46,10,W*.5,H*.46,Math.max(W,H)*.7);bg.addColorStop(0,'#193145');bg.addColorStop(1,'#03060b');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ for(let i=0;i<75;i++){const x=((i*193.17)%997)/997*W,y=((i*87.31)%613)/613*H;ctx.fillStyle='rgba(150,211,239,'+(0.08+(i%4)*.035)+')';ctx.fillRect(x,y,1,1)}
+ if(!ready)return;
+ const base=Math.min(W*.81,Math.max(100,H-148)*16/9*.85),center=H*.48;
+ const top=Math.min(images.length-1,Math.floor(t/interval));
+ for(let i=Math.max(0,top-4);i<=top;i++){let elapsed=t-i*interval;let p=clamp(elapsed/(reduced?.25:1.05)),settle=ease(p);let offX=(i%3-1)*base*.012,offY=(i%2?1:-1)*base*.007;
+ let y=center+offY-(1-settle)*(H+base*.6),x=W/2+offX+(1-settle)*(i%2?W*.18:-W*.18);let rot=angles[i]+(1-settle)*(i%2?17:-17);let scale=1+(1-settle)*.22;
+ if(p>.72&&!reduced)y+=Math.sin((p-.72)/.28*Math.PI)*base*.008;
+ if(reduced){x=W/2+offX;y=center+offY;rot=angles[i];scale=1}
+ let z=i===images.length-1?smooth((t-39)/4):0;
+ if(z){x+=(W/2-x)*z;y+=(H/2-y)*z;rot*=1-z;scale=1;}
+ let width=base+(Math.min(W,H*16/9)-base)*z;
+ photo(i,x,y,width,rot,scale,reduced?p:1,1-z,1-p);
+ }
+ $('seek').value=t;$('time').textContent='0:'+String(Math.floor(t)).padStart(2,'0')+' / 0:45';
+ document.body.classList.toggle('cinema',t>39);
+ c.setAttribute('aria-label',names[top]);
+}
+function state(){ $('toggle').textContent=t>=duration?'Play again':playing?'Pause':'Resume'; }
+function pause(){playing=false;music.pause();state()}
+function play(){if(!ready||innerWidth<=innerHeight)return;if(t>=duration)t=0;started=true;$('cover').hidden=true;music.currentTime=t;playing=true;$('resumeOutro').hidden=true;state();music.play().then(()=>{$('message').textContent=''}).catch(()=>{if(playing){pause();$('resumeOutro').hidden=false;$('message').textContent='Tap Resume to start the outro audio.'}})}
+function reset(){music.pause();t=0;play();draw()}
+$('start').onclick=reset;$('restart').onclick=reset;
+$('toggle').onclick=()=>{if(!started||t>=duration){reset();return}if(playing)pause();else play()};
+$('seek').oninput=()=>{t=Number($('seek').value);started=true;$('cover').hidden=true;music.currentTime=t;if(t>=duration)pause();draw();state()};
+$('mute').onclick=()=>{music.muted=!music.muted;$('mute').textContent=music.muted?'Sound: off':'Sound: on';$('mute').setAttribute('aria-pressed',String(music.muted));$('mute').setAttribute('aria-label',music.muted?'Unmute':'Mute')};
+music.addEventListener('ended',()=>{t=duration;pause();draw();completeOutro()});
+music.addEventListener('error',()=>{pause();$('message').textContent='Music could not load. You can skip to your results.'});
+$('full').onclick=async()=>{if(parent!==window){parent.postMessage({type:'gyruss-outro-fullscreen'},'*');return}try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else throw Error('unsupported')}catch(e){$('message').textContent='Fullscreen is not supported by this browser.';setTimeout(()=>$('message').textContent='',3500)}};
+document.addEventListener('fullscreenchange',()=>{$('full').textContent=document.fullscreenElement?'Fullscreen':'Fullscreen';resize()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing){pause();$('resumeOutro').hidden=false}});
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='BUTTON')return;if(e.code==='Space'){e.preventDefault();$('toggle').click()}if(e.code==='KeyR')reset();if(e.code==='KeyF')$('full').click()});
+addEventListener('resize',()=>{resize();if(innerWidth<=innerHeight&&playing){pause();$('resumeOutro').hidden=false}});resize();
+let loaded=0;Promise.all(SOURCES.map(src=>new Promise((resolve,reject)=>{let im=new Image();im.onload=()=>{$('load').textContent=(++loaded)+' / 6';resolve(im)};im.onerror=reject;im.src=src}))).then(result=>{images=result;ready=true;['start','toggle','restart','seek'].forEach(id=>$(id).disabled=false);$('start').textContent='Start outro';$('load').textContent='Ready · Queen · 45 seconds';draw();parent.postMessage({type:'gyruss-outro-ready'},'*');if(outroWanted)startOutro()}).catch(()=>{$('message').textContent='Images could not load. You can skip to your results.';$('load').textContent='Images could not load. You can skip to your results.'});
+function frame(now){if(playing){t=Math.min(duration,music.currentTime);if(t>=duration){pause();completeOutro()}draw()}last=now;requestAnimationFrame(frame)}requestAnimationFrame(frame);
+function completeOutro(){if(outroDone||!outroWanted)return;outroDone=true;outroWanted=false;pause();parent.postMessage({type:'gyruss-outro-end',run:outroRun},'*')}
+function startOutro(){if(!ready)return;outroDone=false;t=0;music.muted=outroMuted;reset()}
+$('skipOutro').onclick=completeOutro;$('resumeOutro').onclick=()=>{if(innerWidth>innerHeight)play()};
+addEventListener('message',e=>{if(e.source!==parent)return;const d=e.data;if(d?.type==='gyruss-outro-start'){outroRun=d.run;outroWanted=true;outroMuted=!!d.muted;startOutro()}else if(d?.type==='gyruss-outro-stop'){outroWanted=false;pause();t=0;draw()}else if(d?.type==='gyruss-outro-pause'){if(playing){pause();$('resumeOutro').hidden=false}}else if(d?.type==='gyruss-outro-unlock'){music.muted=true;music.play().then(()=>{if(!outroWanted){music.pause();music.currentTime=0}}).catch(()=>{})}});
+// Zdroj hudby 03:54–04:39; stíšenie 40–45 s; čas zvuku riadi fotografie.
+</script></body></html>

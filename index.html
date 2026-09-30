@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>GYRUSS — Aurora / Online campaign v8 / Shared TOP 50</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#040911;color:#e8f6ff;font-family:system-ui,sans-serif}body{height:100dvh}canvas{display:block;width:100%;height:100%;touch-action:manipulation}button{font:inherit;color:inherit;border:1px solid #ffffff30;background:#101e2ce8;padding:11px 16px;border-radius:9px;cursor:pointer;min-height:44px;backdrop-filter:blur(10px)}button:hover{background:#233d51}button:focus-visible,input:focus-visible{outline:2px solid #64efff;outline-offset:4px}button:disabled{opacity:.45;cursor:wait}.brand{position:fixed;left:max(22px,env(safe-area-inset-left));top:max(15px,env(safe-area-inset-top));pointer-events:none;letter-spacing:.25em;font-weight:750;font-size:13px;color:#acc6d8}.brand span{color:#4fdff3}.top{display:flex;gap:5px;position:fixed;right:max(15px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top))}.bar{position:fixed;bottom:max(14px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px;background:#030911c9;border:1px solid #ffffff16;border-radius:14px;max-width:calc(100% - 24px)}input{width:min(24vw,260px);accent-color:#56e0f1;cursor:pointer}#time{font-variant-numeric:tabular-nums;font-size:12px;white-space:nowrap;color:#a5bfd0}.cover{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(ellipse,#071827d9,#02050bee);text-align:center;padding:25px}.cover[hidden]{display:none}.eyebrow{font-size:11px;letter-spacing:.4em;color:#66e4f4}h1{font-size:clamp(40px,10vw,94px);letter-spacing:.16em;margin:10px 0 3px;font-weight:850}h2{margin:0 0 28px;letter-spacing:.4em;font-weight:400;font-size:14px;color:#bacbd8}.primary{background:#67e7f5;color:#052030;border:0;font-weight:750;min-width:200px}.primary:hover{background:#a1f6ff}.note{font-size:12px;color:#93aabb;line-height:1.8}#message{position:fixed;top:70px;left:15px;right:15px;text-align:center;color:#cef8ff;font-size:13px;pointer-events:none}body.cinema .brand{opacity:0}@media(max-width:550px){.brand{top:65px}.top{left:14px;right:14px;justify-content:flex-end}.bar{gap:5px;padding:6px}button{padding:10px 11px;font-size:12px}input{width:20vw}.brand{font-size:11px;left:14px}#time{font-size:10px}}
+body.in-game > :not(#gameframe):not(#rotateGate):not(#scoreboard):not(#pilotGate):not(#ending):not(#summary){display:none!important}#gameframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#02050d;z-index:100}#gameframe[hidden]{display:none}
+
+body.menu .bar,body.menu .brand,body.menu #mute,body.menu #skip{display:none!important}body.menu .top{display:flex;left:auto;right:max(12px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));z-index:20}.top{z-index:20}.cover{padding:0;background:#02040a;isolation:isolate;overflow:hidden}.title-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:-1}.cover .primary{position:absolute;bottom:max(18px,5vh);left:50%;transform:translateX(-50%);border:2px solid #fff1c1;border-radius:4px;background:#ffe99a;color:#17141b;font-family:Impact,'Arial Black',system-ui,sans-serif;font-size:clamp(20px,4vh,34px);letter-spacing:.2em;text-shadow:none;box-shadow:4px 5px 0 #8b2427,0 0 22px #000b;min-width:170px;padding:10px 32px}.cover .primary:disabled{cursor:wait;opacity:.55}.cover .primary:hover{background:#fff4be}.brand{display:none}#full{font-size:12px;min-height:40px;background:#080e1ed9}#skip{border-color:#d7efff99;background:#10283ceb}#skip[hidden]{display:none}.cover[hidden]{display:none}
+#rotateGate{display:none;position:fixed;inset:0;z-index:10000;background:#030811;color:#d4f6ff;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px;font:16px system-ui}#rotateGate span{font-size:80px;color:#67dfff;margin-bottom:20px}#rotateGate p{font-size:13px;color:#91a7bd}@media(orientation:portrait){#rotateGate{display:flex!important}}
+[hidden]{display:none!important}
+#pilotGate{position:fixed;inset:0;z-index:15;display:grid;grid-template-columns:52% 48%;background:#04101d}
+.pilot-art{position:relative;min-width:0;overflow:hidden}.pilot-art img{width:100%;height:100%;object-fit:cover;object-position:28% center}.pilot-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#04101d),linear-gradient(0deg,#04101d,transparent 40%)}
+.pilot-form{align-self:center;justify-self:center;max-height:calc(100dvh - 58px);overflow:auto;margin-top:44px;width:min(90%,420px);padding:20px 12px;color:#d7f0ff}.pilot-form .eyebrow{letter-spacing:.25em}.pilot-form h2{font-size:clamp(20px,4vh,34px);font-weight:800;letter-spacing:.1em;margin:12px 0 20px;color:#e9fbff}.pilot-form label{display:block;font-size:12px;letter-spacing:.16em;color:#9cb9cb;margin-bottom:9px}.pilot-form input{width:100%;font-size:22px;padding:12px 14px;color:#eaffff;background:#071b2b;border:1px solid #67dbe18c;border-radius:8px;cursor:text;outline-offset:2px}.pilot-form .primary{width:100%;min-width:0;margin-top:15px;border-radius:8px;letter-spacing:.1em}.pilot-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px}.pilot-foot small{font-size:11px;color:#88a7bc}.pilot-foot button{font-size:12px;padding:7px 12px}.pilot-error{color:#ffc183;min-height:18px;font-size:12px;margin:8px 0 0}
+#scoreboard{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;background:#020813ed;backdrop-filter:blur(12px)}.score-panel{display:flex;flex-direction:column;width:min(740px,96vw);max-height:94dvh;border:1px solid #5fadc64d;border-radius:16px;padding:20px;background:linear-gradient(140deg,#102b40,#061220);box-shadow:0 20px 90px #0008}.score-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.score-heading h2{margin:0;letter-spacing:.12em;font-size:25px;font-weight:800;color:#e5f9ff}.score-heading span{color:#65e3fa;font-size:11px;letter-spacing:.14em}.score-scroll{overflow:auto;overscroll-behavior:contain;min-height:55px;margin:12px 0;border:1px solid #63839b33;border-radius:8px}table{border-collapse:collapse;width:100%;font-size:14px}th{position:sticky;top:0;background:#0f2a3d;color:#82b5cf;text-align:left;font-size:10px;letter-spacing:.15em;padding:11px 14px}td{padding:10px 14px;border-top:1px solid #7cb9d214}th:last-child,td:last-child{text-align:right;font-variant-numeric:tabular-nums}td:first-child{width:68px;color:#789bb3}.current-pilot{background:#3babc01c;color:#80f1ff}.current-pilot td:first-child{color:#80f1ff}.medal td:first-child{color:#ffde8e}.score-empty{text-align:center;color:#91acbd;padding:24px}.score-status{font-size:12px;color:#bfeeff;line-height:1.4;margin:0 0 6px}.score-storage{font-size:10px;color:#88a7bc;margin:0 0 12px}.score-buttons{display:flex;gap:10px;justify-content:flex-end}.score-buttons button{font-size:12px;min-width:110px}.score-buttons .primary{min-width:110px}
+@media(max-height:450px){.pilot-form{padding:10px}.pilot-form h2{margin:7px 0 12px;font-size:22px}.pilot-form input{font-size:18px;padding:9px 12px}.pilot-form .primary{margin-top:10px;min-height:40px;padding:8px}.pilot-foot{margin-top:7px}.pilot-error{margin-top:4px;min-height:14px;font-size:10px}.score-panel{padding:12px 16px;max-height:95dvh}.score-heading h2{font-size:21px}.score-scroll{margin:8px 0}.score-storage{margin-bottom:7px}td{padding:7px 14px}}
+
+#ending{position:fixed;inset:0;z-index:150;background:#02050d}#gameOverArt{width:100%;height:100%;object-fit:contain}#outroframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#040911}.ending-tools{position:absolute;right:max(16px,env(safe-area-inset-right));top:max(12px,env(safe-area-inset-top));display:flex;gap:8px}#endContinue{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#091c2bdd;border-color:#9ae5f5aa;min-width:170px;font-size:14px}
+#summary{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:18px;background:radial-gradient(ellipse at 50% 40%,#081221eb,#02060ef5);backdrop-filter:blur(10px)}.summary-panel{width:min(490px,94vw);padding:30px 28px 24px;text-align:center;background:#061323ee;border:1px solid #6999bb40;border-radius:28px;box-shadow:0 20px 90px #0005}.summary-panel small{font-size:13px;letter-spacing:.16em;color:#92adbf}.summary-panel h1{font-size:39px;font-weight:550;letter-spacing:.30em;margin:10px 0}.summary-name{font-size:20px;color:#89e5f3;margin-bottom:13px}.summary-panel p{font-size:17px;color:#b2c9d9;white-space:pre-line;line-height:1.65;margin:0 0 5px}.summary-panel .summary-progress{font-size:12px;color:#809aad}.summary-actions{display:flex;justify-content:center;gap:9px;margin-top:22px}.summary-actions button{font-size:16px;padding:15px 25px;min-height:56px;border-radius:17px;border:1px solid #65c1d577}.summary-actions .retry{background:#1d718d;flex:1}.summary-actions #summaryTop{background:#0c2a40;min-width:120px}#summaryCountdown{font-size:11px;color:#839db0;letter-spacing:.08em;min-height:16px;margin-top:12px}.score-panel{width:min(1360px,90vw);border-radius:27px;padding:26px 30px}.score-heading h2{font-size:clamp(22px,3vw,37px)}.score-heading span{font-size:clamp(11px,1.4vw,18px)}.score-scroll{margin:18px 0;border-radius:14px;max-height:54dvh}table{font-size:clamp(14px,1.8vw,23px)}th{font-size:clamp(10px,1.25vw,17px);padding:18px 25px}td{padding:13px 25px}td:first-child{width:125px}.score-status{font-size:clamp(12px,1.4vw,20px)}.score-storage{font-size:clamp(10px,1.1vw,16px)}.score-buttons button{min-height:58px;min-width:160px;font-size:16px;border-radius:15px}.score-buttons .primary{min-width:195px}
+@media(max-height:450px){.summary-panel{padding:16px 24px 13px;border-radius:22px;width:430px;max-height:94dvh;overflow:auto}.summary-panel h1{font-size:27px;margin:6px 0}.summary-panel small{font-size:10px}.summary-name{font-size:15px;margin-bottom:6px}.summary-panel p{font-size:12px;line-height:1.5}.summary-panel .summary-progress{font-size:10px}.summary-actions{margin-top:12px}.summary-actions button{font-size:13px;min-height:42px;padding:10px 18px;border-radius:11px}#summaryCountdown{font-size:9px;margin-top:7px}.score-panel{padding:16px 22px;border-radius:20px}.score-heading h2{font-size:22px}.score-heading span{font-size:11px}.score-scroll{margin:10px 0;max-height:49dvh}th{padding:10px 16px;font-size:10px}td{padding:8px 16px;font-size:14px}td:first-child{width:75px}.score-status{font-size:12px}.score-storage{font-size:10px}.score-buttons button{font-size:12px;min-height:42px;min-width:120px}.score-buttons .primary{min-width:150px}}
+</style></head><body class="menu"><div id="rotateGate" role="status"><span>↻</span><strong>Rotate your device to landscape</strong><p>GYRUSS is played in landscape only.</p></div>
+<iframe id="cloudBridge" title="Google Sheets leaderboard connection" aria-hidden="true" tabindex="-1" style="position:absolute;width:0;height:0;border:0;visibility:hidden;pointer-events:none"></iframe>
+<audio id="music" preload="metadata" src="assets/intro-music-4530068365.mp3"></audio><iframe id="gameframe" title="Gyruss — five-level campaign" allow="fullscreen; autoplay" allowfullscreen hidden></iframe><canvas id="stage" aria-label="Comic intro: Aurora pilot sets out to defend Earth"></canvas>
+<div class="brand">GYRUSS <span>/ AURORA</span></div><div class="top"><button id="skip" hidden>Skip intro</button><button id="mute" aria-label="Mute" aria-pressed="false">Sound: on</button> <button id="full">Fullscreen</button></div>
+<div hidden inert aria-hidden="true" style="display:none"><button id="toggle" disabled>Pause</button><button id="restart" disabled aria-label="Play from the beginning">↻ Replay</button><input id="seek" type="range" min="0" max="45" step="0.05" value="0" aria-label="Intro time" disabled><span id="time">0:00 / 0:40</span></div>
+<div class="cover" id="cover"><img class="title-poster" src="assets/title-poster-72a6e94757.webp" alt="GYRUSS — printed arcade poster featuring Aurora"><button class="primary" id="start" disabled>START</button><span id="load" hidden></span></div><div id="message" role="status"></div>
+
+<section id="pilotGate" hidden aria-labelledby="pilotHeading">
+ <div class="pilot-art"><img id="pilotImage" alt="Aurora pilot in a flight suit at the Earth defense base"></div>
+ <form id="pilotForm" class="pilot-form"><div class="eyebrow">EARTH DEFENSE / PILOT REGISTRATION</div><h2 id="pilotHeading">READY FOR FLIGHT?</h2>
+ <label for="pilotName">PILOT NAME</label><input id="pilotName" name="pilot" type="text" maxlength="20" placeholder="Enter your name" autocomplete="nickname" enterkeyhint="go" spellcheck="false" required aria-describedby="pilotError">
+ <p class="pilot-error" id="pilotError" role="status"></p><button type="submit" class="primary">BEGIN MISSION</button>
+ <div class="pilot-foot"><small>Your best score joins the TOP 50.</small><button id="pilotScores" type="button">TOP 50</button></div></form>
+</section>
+<section id="scoreboard" hidden role="dialog" aria-modal="true" aria-labelledby="scoreHeading">
+ <div class="score-panel"><div class="score-heading"><h2 id="scoreHeading">TOP 50 PILOTS</h2><span>GYRUSS / AURORA</span></div>
+ <div class="score-scroll"><table aria-label="Top 50 pilots by best campaign score"><thead><tr><th scope="col">RANK</th><th scope="col">PILOT</th><th scope="col">BEST SCORE</th></tr></thead><tbody id="scoreRows"></tbody></table><p id="scoreEmpty" class="score-empty" hidden>No scores yet. Your mission starts here.</p></div>
+ <p id="scoreStatus" class="score-status" role="status"></p><p id="scoreStorage" class="score-storage"></p>
+ <div class="score-buttons"><button id="syncScores" hidden>RETRY SYNC</button><button id="newPilot" hidden>NEW PILOT</button><button class="primary" id="closeScores">CONTINUE</button></div></div>
+</section>
+
+<section id="ending" hidden aria-label="End of mission"><img id="gameOverArt" src="assets/game-over-d7666a7455.webp" alt="GAME OVER — burning Aurora above a devastated Earth"><iframe id="outroframe" title="Victory outro — Aurora returns to Earth" allow="autoplay; fullscreen" allowfullscreen hidden></iframe><div class="ending-tools" id="deathTools"><button id="endFull">Fullscreen</button></div><button id="endContinue">CONTINUE</button></section>
+<section id="summary" hidden role="dialog" aria-modal="true" aria-labelledby="summaryTitle"><div class="summary-panel"><small id="summaryLevel"></small><h1 id="summaryTitle">GYRUSS</h1><div id="summaryName" class="summary-name"></div><p id="summaryOutcome"></p><p id="summaryStats"></p><p id="summaryEnergy"></p><p id="summaryProgress" class="summary-progress"></p><div class="summary-actions"><button id="summaryRetry" class="retry">RETRY LEVEL</button><button id="summaryTop">TOP 50</button></div><div id="summaryCountdown" role="timer"></div></div></section>
+<script src="leaderboard-config.js"></script>
+<script>
+'use strict';
+const SOURCES=["assets/intro-01-6a30caea7f.webp", "assets/intro-02-427a44265e.webp", "assets/intro-03-29b0533360.webp", "assets/intro-04-440dfcf5c1.webp", "assets/intro-05-d7ac3ae4a5.webp", "assets/intro-06-05363a67a1.webp", "assets/intro-07-2e219450df.webp", "assets/intro-08-5fd91037ab.webp", "assets/intro-09-e2e7058252.webp", "assets/intro-10-0bb2a10f9e.webp"];
+document.getElementById('pilotImage').src=SOURCES[4];
+const names=['Earth in danger','Alert','Orders','Aurora awaits','Ready','Boarding','Activation','Launch','Beyond the atmosphere','First contact'];
+const $=id=>document.getElementById(id),c=$('stage'),ctx=c.getContext('2d',{alpha:false});
+const music=$('music');
+
+const gameframe=$('gameframe');let gameReady=false,gameStarted=false,wantsGame=false;
+
+// One personal best per normalized pilot name; only the best 50 are retained.
+const SCORE_KEY='gyruss.top50.v1',PILOT_KEY='gyruss.pilot.v1';
+function cleanPilot(value){return typeof value==='string'?Array.from(value.normalize('NFC').replace(/[\u0000-\u001f\u007f]/g,'').trim().replace(/\s+/g,' ')).slice(0,20).join(''):''}
+function pilotKey(name){return cleanPilot(name).toLowerCase()}
+function validEntry(row){return row&&typeof row==='object'&&cleanPilot(row.name)&&Number.isSafeInteger(row.score)&&row.score>=0&&row.score<=1e9&&Number.isInteger(row.level)&&row.level>=1&&row.level<=5&&Number.isFinite(row.date)&&row.date>=0}
+function rankScores(rows){const best=new Map();for(const row of rows){if(!validEntry(row))continue;const r={name:cleanPilot(row.name),score:row.score,level:row.level,date:row.date},key=pilotKey(r.name),old=best.get(key);if(!old||r.score>old.score||(r.score===old.score&&r.date<old.date))best.set(key,r)}return [...best.values()].sort((a,b)=>b.score-a.score||a.date-b.date||a.name.localeCompare(b.name,'en')).slice(0,50)}
+let scores=[],storageAvailable=true,playerName='',boardReturn='pilot';
+try{const raw=localStorage.getItem(SCORE_KEY);if(raw){const value=JSON.parse(raw);if(value?.version===1&&Array.isArray(value.players))scores=rankScores(value.players)}}catch(error){if(error.name!=='SyntaxError')storageAvailable=false}
+try{playerName=cleanPilot(localStorage.getItem(PILOT_KEY)||'')}catch{storageAvailable=false}
+function saveScore(result){if(!validEntry({...result,name:playerName,date:Date.now()}))return null;const previous=scores.find(r=>pilotKey(r.name)===pilotKey(playerName));const candidate={name:playerName,score:result.score,level:result.level,date:Date.now()};scores=rankScores([...scores,candidate]);let saved=false;try{localStorage.setItem(SCORE_KEY,JSON.stringify({version:1,players:scores}));storageAvailable=true;saved=true}catch{storageAvailable=false}const rank=scores.findIndex(r=>pilotKey(r.name)===pilotKey(playerName))+1;const receipt={rank,saved,name:candidate.name,newBest:!previous||result.score>previous.score,score:result.score};queueCloudScore(candidate,receipt);return receipt}
+// Google Apps Script HTML bridge. The service remains outside the static GitHub site.
+const CLOUD_CACHE_KEY='gyruss.cloud.top50.v1',CLOUD_QUEUE_KEY='gyruss.cloud.pending.v1';
+const CLOUD_ORIGIN='https://cevan1304.github.io';
+let cloudPlayers=null,cloudState='local',pendingScores=[],cloudWindow=null,cloudOrigin='',cloudChannel='',cloudTimer=null,cloudRPC=null,cloudSerial=0,cloudReadWanted=false,boardResult=null,cloudQueueDurable=true;
+const cloudReceipts=new Map();
+function validCloudPlayers(rows){return Array.isArray(rows)&&rows.length<=50&&rows.every(validEntry)}
+function cloudStored(key,fallback){try{const value=JSON.parse(localStorage.getItem(key)||'null');return value?.version===1?value:fallback}catch{return fallback}}
+function cloudPersist(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}}
+const cachedCloud=cloudStored(CLOUD_CACHE_KEY,null);
+if(validCloudPlayers(cachedCloud?.players))cloudPlayers=rankScores(cachedCloud.players);
+const queuedCloud=cloudStored(CLOUD_QUEUE_KEY,null);
+if(validCloudPlayers(queuedCloud?.players))pendingScores=rankScores(queuedCloud.players);
+function cloudURL(){try{const u=new URL(window.GYRUSS_LEADERBOARD_URL);return u.origin==='https://script.google.com'&&/^\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(u.pathname)?u.href:''}catch{return ''}}
+function cloudAllowed(){return window.location?.origin===CLOUD_ORIGIN&&Boolean(cloudURL())}
+function cloudGoogleOrigin(origin){return typeof origin==='string'&&(origin==='https://script.google.com'||/^https:\/\/(?:[a-z0-9-]+\.)?googleusercontent\.com$/.test(origin))}
+function cloudSetPlayers(rows){cloudPlayers=rankScores(rows);cloudPersist(CLOUD_CACHE_KEY,{version:1,players:cloudPlayers})}
+function cloudQueuePersist(){return cloudQueueDurable=cloudPersist(CLOUD_QUEUE_KEY,{version:1,players:pendingScores})}
+function cloudDisplayRows(){return cloudPlayers===null?scores:cloudPlayers}
+function cloudRedraw(){if(!$('scoreboard').hidden)renderScores()}
+function cloudStatus(){
+ const pending=pendingScores.length,queued=(pending?' '+pending+' result'+(pending===1?'':'s')+' waiting to sync.':'')+(pending&&!cloudQueueDurable?' Pending sync is kept for this session only.':'');
+ const backup=storageAvailable?' Local scores are saved on this device.':' Local scores are kept for this session only.';
+ if(cloudState==='ready')return 'Shared TOP 50 · Google Sheets.'+(cloudRPC?' Syncing…':'')+queued;
+ if(cloudState==='connecting')return 'Connecting to shared TOP 50…'+queued+backup;
+ if(!cloudAllowed())return 'Shared scores are available on the online GitHub game.'+backup;
+ return (cloudPlayers===null?'Local TOP 50 · Google service unavailable.':'Last synced TOP 50 · Google service unavailable.')+queued+backup;
+}
+function renderScores(){
+ const rows=cloudDisplayRows(),result=boardResult;
+ $('scoreRows').replaceChildren();rows.forEach((row,index)=>{const tr=document.createElement('tr');if(index<3)tr.classList.add('medal');if(pilotKey(row.name)===pilotKey(playerName))tr.classList.add('current-pilot');for(const value of [String(index+1).padStart(2,'0'),row.name,row.score.toLocaleString('en-US')]){const td=document.createElement('td');td.textContent=value;tr.appendChild(td)}$('scoreRows').appendChild(tr)});
+ $('scoreEmpty').hidden=rows.length>0;
+ $('scoreHeading').textContent=cloudPlayers===null?'TOP 50 PILOTS · LOCAL':'TOP 50 PILOTS';
+ let text='One personal best per pilot. Scores from all completed levels are added together.';
+ if(result){
+  if(result.cloud==='saved'){const rank=cloudPlayers?.findIndex(r=>pilotKey(r.name)===pilotKey(result.name))+1;text=rank>0?result.name+' · Shared rank #'+rank:'Mission score '+result.score.toLocaleString('en-US')+' · Outside the shared TOP 50';}
+  else if(cloudAllowed())text='Mission score '+result.score.toLocaleString('en-US')+' · Waiting to sync with Google Sheets.';
+  else text=result.rank?(result.newBest?'New personal best':'Personal best retained')+' · '+result.name+' · Local rank #'+result.rank:'Mission score '+result.score.toLocaleString('en-US')+' · Outside the local TOP 50';
+ }
+ $('scoreStatus').textContent=text;$('scoreStorage').textContent=cloudStatus();
+ $('syncScores').hidden=!cloudAllowed();$('syncScores').disabled=cloudState==='connecting'||Boolean(cloudRPC);$('syncScores').textContent=cloudState==='ready'?'REFRESH':'RETRY SYNC';
+}
+function queueCloudScore(candidate,receipt){
+ if(!validEntry(candidate))return;
+ receipt.cloud='pending';cloudReceipts.set(pilotKey(candidate.name),receipt);
+ pendingScores=rankScores([...pendingScores,candidate]);receipt.queued=cloudQueuePersist();
+ if(cloudAllowed()){if(cloudState==='ready')pumpCloud();else if(cloudState!=='connecting')connectCloud()}
+}
+function cloudOffline(){
+ clearTimeout(cloudTimer);cloudTimer=null;if(cloudRPC)clearTimeout(cloudRPC.timer);cloudRPC=null;cloudWindow=null;cloudOrigin='';cloudState='offline';cloudRedraw();
+}
+function connectCloud(){
+ if(!cloudAllowed()){cloudState='local';cloudRedraw();return}
+ if(cloudState==='connecting')return;
+ clearTimeout(cloudTimer);if(cloudRPC)clearTimeout(cloudRPC.timer);cloudRPC=null;cloudWindow=null;cloudOrigin='';cloudReadWanted=false;
+ const bytes=new Uint8Array(16);window.crypto.getRandomValues(bytes);cloudChannel=Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');cloudState='connecting';
+ let bridge=$('cloudBridge');const url=new URL(cloudURL());url.searchParams.set('channel',cloudChannel);bridge.src=url.href;
+ cloudTimer=setTimeout(()=>{if(cloudState==='connecting')cloudOffline()},15000);cloudRedraw();
+}
+function requestCloud(type,result=null){
+ if(cloudState!=='ready'||!cloudWindow||cloudRPC)return;
+ const id='rpc_'+(++cloudSerial),entry=result?{...result}:null;
+ cloudRPC={id,type,entry,timer:setTimeout(()=>{if(cloudRPC?.id===id)cloudOffline()},15000)};
+ try{cloudWindow.postMessage({type,id,channel:cloudChannel,...(entry?{result:{name:entry.name,score:entry.score,level:entry.level}}:{})},cloudOrigin)}catch{cloudOffline()}
+ cloudRedraw();
+}
+function pumpCloud(){
+ if(cloudState!=='ready'||cloudRPC)return;
+ if(pendingScores.length)requestCloud('gyruss-cloud-save',pendingScores[0]);
+ else if(cloudReadWanted){cloudReadWanted=false;requestCloud('gyruss-cloud-read')}
+}
+addEventListener('message',event=>{
+ const data=event.data;
+ if(!data||data.channel!==cloudChannel||!cloudChannel||!cloudGoogleOrigin(event.origin)||!event.source)return;
+ if(data.type==='gyruss-cloud-ready'&&cloudState==='connecting'){
+  if(!validCloudPlayers(data.players)){cloudOffline();return}
+  clearTimeout(cloudTimer);cloudTimer=null;cloudWindow=event.source;cloudOrigin=event.origin;cloudState='ready';cloudSetPlayers(data.players);cloudRedraw();pumpCloud();return;
+ }
+ if(data.type==='gyruss-cloud-error'&&cloudState==='connecting'){cloudOffline();return}
+ if(event.source!==cloudWindow||event.origin!==cloudOrigin||data.type!=='gyruss-cloud-result'||!cloudRPC||data.id!==cloudRPC.id)return;
+ const rpc=cloudRPC;
+ if(!data.ok||data.result?.version!==1||!validCloudPlayers(data.result.players)){cloudOffline();return}
+ if(rpc.entry){
+  const rank=data.result.players.findIndex(r=>pilotKey(r.name)===pilotKey(rpc.entry.name))+1;
+  if(!Number.isInteger(data.result.rank)||data.result.rank!==rank||data.result.stored!==(rank>0)||typeof data.result.newBest!=='boolean'||(rank>0&&data.result.players[rank-1].score<rpc.entry.score)){cloudOffline();return}
+  pendingScores=pendingScores.filter(row=>pilotKey(row.name)!==pilotKey(rpc.entry.name)||row.score>rpc.entry.score);cloudQueuePersist();
+  const receipt=cloudReceipts.get(pilotKey(rpc.entry.name));if(receipt&&receipt.score<=rpc.entry.score){receipt.cloud='saved';receipt.cloudRank=rank}
+ }
+ clearTimeout(rpc.timer);cloudRPC=null;cloudSetPlayers(data.result.players);cloudRedraw();pumpCloud();
+});
+$('syncScores').onclick=()=>{if(cloudState==='ready'){cloudReadWanted=true;pumpCloud()}else connectCloud()};
+addEventListener('online',()=>{if(cloudAllowed()){if(cloudState==='ready'){cloudReadWanted=true;pumpCloud()}else connectCloud()}});
+
+function showScores(result=null){summaryAuto=false;$('summaryCountdown').textContent='';boardReturn=gameStarted?'game':'pilot';boardResult=result;$('newPilot').hidden=boardReturn!=='game';$('closeScores').textContent=boardReturn==='game'?'BACK TO RESULTS':'BACK';$('scoreboard').hidden=false;gameframe.inert=true;$('pilotGate').inert=true;renderScores();$('closeScores').focus();if(cloudState==='ready'){cloudReadWanted=true;pumpCloud()}else if(cloudAllowed()&&cloudState!=='connecting')connectCloud()}
+function closeScores(){$('scoreboard').hidden=true;gameframe.inert=false;$('pilotGate').inert=false;if(boardReturn==='game'){if(endPhase==='summary')$('summaryTop').focus();else gameframe.contentWindow.focus();}else $('pilotName').focus()}
+function showPilot(fresh=false){if(fresh){cancelEnding();pause();gameframe.hidden=true;gameframe.inert=false;gameStarted=false;wantsGame=false;started=false;t=0;document.body.classList.remove('in-game');document.body.classList.add('menu');$('skip').hidden=true;requestAnimationFrame(frame)}$('cover').hidden=true;$('pilotGate').hidden=false;$('pilotName').value=playerName;$('pilotError').textContent='';$('pilotName').focus();$('pilotName').select()}
+$('closeScores').onclick=closeScores;$('pilotScores').onclick=()=>showScores();$('newPilot').onclick=()=>{closeScores();showPilot(true)};
+$('pilotForm').onsubmit=e=>{e.preventDefault();if(innerWidth<=innerHeight)return;const name=cleanPilot($('pilotName').value);if(!name){$('pilotError').textContent='Please enter a pilot name.';$('pilotName').focus();return}playerName=name;try{localStorage.setItem(PILOT_KEY,playerName)}catch{storageAvailable=false}$('pilotName').blur();$('pilotGate').hidden=true;document.body.classList.remove('menu');$('skip').hidden=false;gameframe.contentWindow.unlockLevelAudio?.();outroframe.contentWindow.postMessage({type:'gyruss-outro-unlock'},'*');reset()};
+$('scoreboard').addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closeScores()}else if(e.key==='Tab'){const buttons=[$('syncScores'),$('newPilot'),$('closeScores')].filter(button=>!button.hidden&&!button.disabled),first=buttons[0],last=buttons[buttons.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+
+const outroframe=$('outroframe');let endPhase='none',endRun=0,endResult=null,endSaved=null,endRemaining=0,summaryAuto=false,endLast=null;
+function cancelEnding(){endRun++;endPhase='none';summaryAuto=false;endRemaining=0;endLast=null;$('ending').hidden=true;$('summary').hidden=true;$('scoreboard').hidden=true;gameframe.inert=false;$('pilotGate').inert=false;outroframe.contentWindow.postMessage({type:'gyruss-outro-stop'},'*')}
+function showSummary(){if(!endResult||endPhase==='none')return;outroframe.contentWindow.postMessage({type:'gyruss-outro-stop'},'*');$('ending').hidden=true;$('summary').hidden=false;endPhase='summary';endRemaining=20;endLast=null;summaryAuto=true;$('summaryLevel').textContent='LEVEL '+endResult.level+' / '+endResult.levelName;$('summaryName').textContent=playerName;$('summaryOutcome').textContent=endResult.outcome==='won'?'EARTH IS SAFE. CAMPAIGN COMPLETE.':endResult.outcome==='dead'?'AURORA WAS DESTROYED.':'MISSION FAILED. OVERSEER ESCAPED.';$('summaryStats').textContent='Total score '+endResult.score.toLocaleString('en-US')+' · kills '+endResult.kills+' · accuracy '+endResult.accuracy+' %';$('summaryEnergy').textContent='Remaining energy '+endResult.hp+' / 100';$('summaryProgress').textContent='Levels completed '+endResult.completed+' / 5';$('summaryRetry').textContent=endResult.outcome==='won'?'RESTART CAMPAIGN':'RETRY LEVEL';$('summaryCountdown').textContent='TOP 50 IN 20 SECONDS';$('summaryTop').focus()}
+function finishCampaign(data){if(endPhase!=='none'||!['dead','lost','won'].includes(data.outcome))return;endResult=data;endSaved=saveScore(data);endRun++;endLast=null;gameframe.inert=true;$('ending').hidden=false;$('summary').hidden=true;if(data.outcome==='won'){endPhase='outro';$('gameOverArt').hidden=true;$('deathTools').hidden=true;$('endContinue').hidden=true;outroframe.hidden=false;outroframe.contentWindow.postMessage({type:'gyruss-outro-start',run:endRun,muted:data.muted},'*');outroframe.contentWindow.focus()}else{endPhase='gameover';endRemaining=6;$('gameOverArt').hidden=false;$('deathTools').hidden=false;$('endContinue').hidden=false;outroframe.hidden=true;$('endContinue').focus()}const run=endRun;requestAnimationFrame(now=>endingFrame(now,run))}
+function endingFrame(now,run){if(run!==endRun||endPhase==='none')return;const visible=!document.hidden&&innerWidth>innerHeight;const dt=endLast===null?0:Math.max(0,Math.min(.25,(now-endLast)/1000));endLast=now;if(visible){if(endPhase==='gameover'){endRemaining=Math.max(0,endRemaining-dt);if(endRemaining<=0)showSummary()}else if(endPhase==='summary'&&summaryAuto&&$('scoreboard').hidden){endRemaining=Math.max(0,endRemaining-dt);$('summaryCountdown').textContent='TOP 50 IN '+Math.ceil(endRemaining)+' SECONDS';if(endRemaining<=0)showScores(endSaved)}}requestAnimationFrame(now=>endingFrame(now,run))}
+$('endContinue').onclick=()=>{if(endPhase==='gameover')showSummary()};$('endFull').onclick=()=>$('full').click();$('summaryTop').onclick=()=>showScores(endSaved);$('summaryRetry').onclick=()=>{cancelEnding();gameframe.contentWindow.postMessage({type:'gyruss-retry'},'*');gameframe.contentWindow.focus()};
+$('summary').addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();(document.activeElement===$('summaryRetry')?$('summaryTop'):$('summaryRetry')).focus()}});
+addEventListener('message',e=>{const data=e.data;if(e.source===gameframe.contentWindow){if(data?.type==='gyruss-score'&&gameStarted)finishCampaign(data);else if(data?.type==='gyruss-leaderboard'&&gameStarted)showScores(endSaved);else if(data?.type==='gyruss-flight')cancelEnding()}else if(e.source===outroframe.contentWindow){if(data?.type==='gyruss-outro-end'&&endPhase==='outro'&&data.run===endRun)showSummary();else if(data?.type==='gyruss-outro-fullscreen')$('full').click()}});
+function pauseEnding(){endLast=null;if(endPhase==='outro'&&(document.hidden||innerWidth<=innerHeight))outroframe.contentWindow.postMessage({type:'gyruss-outro-pause'},'*')}
+document.addEventListener('visibilitychange',pauseEnding);addEventListener('resize',pauseEnding);addEventListener('orientationchange',pauseEnding);
+outroframe.src='outro.html';
+
+
+function launchGame(){if(gameStarted)return;wantsGame=true;pause();if(innerWidth<=innerHeight)return;if(!gameReady){$('message').textContent='Preparing flight…';return}gameStarted=true;$('message').textContent='';gameframe.hidden=false;document.body.classList.add('in-game');gameframe.contentWindow.focus();gameframe.contentWindow.postMessage({type:'gyruss-start',muted:music.muted,playerName,newCampaign:true},'*')}
+addEventListener('message',e=>{if(e.source===gameframe.contentWindow&&e.data?.type==='gyruss-ready'){gameReady=true;if(ready){$('start').disabled=false;$('start').textContent='START'}if(wantsGame)launchGame()}});
+gameframe.src='campaign.html';
+
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const duration=45,visualDuration=40,interval=3.55,angles=[-3.4,3.7,-2.3,4.1,-4.2,2.6,-2.8,3.4,-3.1,1.8];
+let images=[],W=0,H=0,t=0,playing=false,ready=false,started=false,last=0;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>1-Math.pow(1-clamp(x),3),smooth=x=>{x=clamp(x);return x*x*(3-2*x)};
+function resize(){W=innerWidth;H=innerHeight;const d=Math.min(devicePixelRatio||1,2);c.width=Math.round(W*d);c.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);draw()}
+function photo(i,cx,cy,w,angle,scale=1,alpha=1,border=1,fall=0){const im=images[i];if(!im)return;const h=w*9/16,b=w*.011*border;ctx.save();ctx.globalAlpha=alpha;ctx.translate(cx,cy);ctx.rotate(angle*Math.PI/180);ctx.scale(scale,scale);ctx.shadowColor='rgba(0,0,0,.65)';ctx.shadowBlur=18+fall*32;ctx.shadowOffsetY=8+fall*22;ctx.fillStyle='#f4f1e9';ctx.fillRect(-w/2-b,-h/2-b,w+2*b,h+2*b);ctx.shadowColor='transparent';ctx.drawImage(im,-w/2,-h/2,w,h);ctx.restore()}
+function draw(){ctx.fillStyle='#040911';ctx.fillRect(0,0,W,H);let bg=ctx.createRadialGradient(W*.5,H*.46,10,W*.5,H*.46,Math.max(W,H)*.7);bg.addColorStop(0,'#193145');bg.addColorStop(1,'#03060b');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ for(let i=0;i<75;i++){const x=((i*193.17)%997)/997*W,y=((i*87.31)%613)/613*H;ctx.fillStyle='rgba(150,211,239,'+(0.08+(i%4)*.035)+')';ctx.fillRect(x,y,1,1)}
+ if(!ready)return;
+ const base=Math.min(W*.81,Math.max(100,H-148)*16/9*.85),center=H*.48;
+ const top=Math.min(9,Math.floor(t/interval));
+ for(let i=Math.max(0,top-4);i<=top;i++){let elapsed=t-i*interval;let p=clamp(elapsed/(reduced?.25:1.05)),settle=ease(p);let offX=(i%3-1)*base*.012,offY=(i%2?1:-1)*base*.007;
+ let y=center+offY-(1-settle)*(H+base*.6),x=W/2+offX+(1-settle)*(i%2?W*.18:-W*.18);let rot=angles[i]+(1-settle)*(i%2?17:-17);let scale=1+(1-settle)*.22;
+ if(p>.72&&!reduced)y+=Math.sin((p-.72)/.28*Math.PI)*base*.008;
+ if(reduced){x=W/2+offX;y=center+offY;rot=angles[i];scale=1}
+ let z=i===9?smooth((t-35.3)/3.1):0;
+ if(z){x+=(W/2-x)*z;y+=(H/2-y)*z;rot*=1-z;scale=1;}
+ let width=base+(Math.min(W,H*16/9)-base)*z;
+ photo(i,x,y,width,rot,scale,reduced?p:1,1-z,1-p);
+ }
+ $('seek').value=t;$('time').textContent=t<40?'0:'+String(Math.floor(t)).padStart(2,'0')+' / 0:40':'Outro '+Math.max(0,Math.ceil(45-t))+' s';
+ document.body.classList.toggle('cinema',t>35);
+ c.setAttribute('aria-label',names[top]);
+}
+function state(){ $('toggle').textContent=t>=duration?'Play again':playing?'Pause':'Resume'; }
+function pause(){playing=false;music.pause();state()}
+function play(){if(!ready||innerWidth<=innerHeight)return;if(t>=duration)t=0;started=true;$('cover').hidden=true;music.currentTime=t;playing=true;state();music.play().then(()=>{$('message').textContent=''}).catch(()=>{if(playing){pause();$('message').textContent='Audio did not start. Tap Resume.'}})}
+function reset(){if(innerWidth<=innerHeight)return;document.body.classList.remove('menu');$('skip').hidden=false;music.pause();t=0;play();draw()}
+$('start').onclick=()=>{if(innerWidth>innerHeight)showPilot()};$('restart').onclick=reset;
+$('toggle').onclick=()=>{if(!started||t>=duration){reset();return}if(playing)pause();else play()};
+$('seek').oninput=()=>{t=Number($('seek').value);started=true;$('cover').hidden=true;music.currentTime=t;if(t>=duration){pause();launchGame()}draw();state()};
+$('skip').onclick=()=>{if(!started||gameStarted||!$('pilotGate').hidden)return;music.pause();t=duration;launchGame()};
+$('mute').onclick=()=>{music.muted=!music.muted;$('mute').textContent=music.muted?'Sound: off':'Sound: on';$('mute').setAttribute('aria-pressed',String(music.muted));$('mute').setAttribute('aria-label',music.muted?'Unmute':'Mute')};
+music.addEventListener('ended',()=>{t=duration;pause();draw();launchGame()});
+music.addEventListener('error',()=>{pause();$('message').textContent='Music could not load. Open the HTML file in your browser.'});
+$('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen();try{await screen.orientation.lock('landscape')}catch{}}else throw Error('unsupported')}catch(e){$('message').textContent='Fullscreen is not supported by this browser.';setTimeout(()=>$('message').textContent='',3500)}};
+document.addEventListener('fullscreenchange',()=>{$('full').textContent='Fullscreen';resize()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing)pause()});
+addEventListener('keydown',e=>{if(gameStarted)return;if(e.target.tagName==='INPUT'||e.target.tagName==='BUTTON')return;if(e.code==='KeyF')$('full').click()});
+function checkOrientation(){if(innerWidth<=innerHeight){if(playing)pause()}else if(wantsGame&&!gameStarted)launchGame()}addEventListener('resize',checkOrientation);addEventListener('orientationchange',checkOrientation);addEventListener('resize',resize);resize();
+let loaded=0;Promise.all(SOURCES.map(src=>new Promise((resolve,reject)=>{let im=new Image();im.onload=()=>{$('load').textContent=(++loaded)+' / 10';resolve(im)};im.onerror=reject;im.src=src}))).then(result=>{images=result;ready=true;['start','toggle','restart','seek'].forEach(id=>$(id).disabled=false);$('start').disabled=!gameReady;$('start').textContent='START';$('load').textContent='AURORA · EARTH DEFENSE';draw()}).catch(()=>{$('load').textContent='Images could not load. Open the file again in your browser.'});
+function frame(now){if(playing){t=Math.min(duration,music.currentTime);if(t>=duration){pause();launchGame()}draw()}last=now;if(!gameStarted)requestAnimationFrame(frame)}requestAnimationFrame(frame);
+// Photos 0–40 s; music tail and fade 40–45 s; then start the game automatically.
+
+connectCloud();
+</script></body></html>
