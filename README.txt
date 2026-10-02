@@ -1,98 +1,62 @@
-GYRUSS / AURORA — GitHub Pages v8 / Google TOP 50
-================================================
+GYRUSS / AURORA — GitHub v9 Optimized
+=====================================
 
-Táto verzia zachováva finálnu päťlevelovú hru v7, intro, GAME OVER,
-outro s hudbou a súhrn výsledkov. Pridáva spoločný rebríček v Google Sheets.
+Tento balík zodpovedá optimalizovanej HTML verzii v9. Obsahuje všetkých
+5 levelov, pôvodné intro/outro, opravu iPhone ovládania a Google TOP 50.
+Médiá sú rozdelené na menšie samostatné súbory pre GitHub Pages.
 
-1. DOKONČENIE NASTAVENIA GOOGLE
-Pri overení dodanej /exec adresy služba presmerovala návštevníka na
-prihlásenie Google. Verejné čítanie ani živý zápis preto zatiaľ nie sú overené.
+AKTUALIZÁCIA Z PREDCHÁDZAJÚCEJ GITHUB VERZIE v8
+1. Rozbaľ ZIP na počítači.
+2. V repozitári cevan1304/Gyruss nahraď tieto súbory v koreňovom priečinku:
+   index.html
+   campaign.html
+   outro.html
+   README.txt (nový návod)
+3. Nahraj celý priečinok assets z tohto balíka do existujúceho assets.
+   Nahraď všetkých 34 obrázkov .webp a pridaj všetkých 7 nových skladieb .m4a.
+   Zachovaj názvy súborov aj priečinka assets.
+4. Ponechaj existujúci leaderboard-config.js s tvojou fungujúcou adresou
+   Google Apps Script. Backend ani Google tabuľku nemusíš znova nastavovať.
+5. Súbory touch-controls.css, .nojekyll a Gyruss_Google_Leaderboard.gs
+   majú rovnaký obsah ako v8 a netreba ich aktualizovať. Ak ešte nemáš
+   touch-controls.css z opravy iPhone, pridaj ho z tohto balíka.
+6. Po dokončení publikovania GitHub Pages obnov stránku hry.
+   Odkazy na herné časti a médiá majú označenie ?v=9, aby prehliadač načítal
+   nové súbory. Na počítači môžeš použiť Ctrl+F5, na mobile obnov stránku.
 
-V projekte Apps Script otvor:
-Deploy / Nasadiť → Manage deployments / Spravovať nasadenia → ceruzka.
-Web app / Webová aplikácia musí mať:
-- Execute as / Spustiť ako: Me / Ja (vlastník tabuľky).
-- Who has access / Kto má prístup: Anyone / Ktokoľvek.
-  Nevyberaj možnosť vyžadujúcu účet Google.
-Potom nasadenie potvrď. Ak Google vyžaduje novú verziu, zvoľ New version.
+Nahraj ROZBALENÝ OBSAH, nie ZIP ako samotnú hru. index.html patrí priamo
+do koreňa repozitára, nie do vnoreného priečinka Gyruss_GitHub_v9_Optimized.
+Najprv nahraj assets, potom HTML, aby nové stránky mali dostupné médiá.
+Ak rozhranie umožní jeden spoločný commit, nahraj všetky zmeny naraz.
 
-Ak ešte nebola spustená funkcia setupLeaderboard, spusti ju raz v editore
-a povoľ prístup skriptu k svojej tabuľke. Existujúce výsledky sa tým nemažú.
+STARÉ MP3 SÚBORY
+Nová verzia ich už nepoužíva. Môžu zostať na GitHube; na hranie sa nenačítajú.
+Po overení v9 ich môžeš odstrániť, ak ich nepoužíva iná ponechaná verzia hry:
+   assets/intro-music-4530068365.mp3
+   assets/level-1-music-2e20e41bd6.mp3
+   assets/level-2-music-c21c2c0f02.mp3
+   assets/level-3-music-f110edf132.mp3
+   assets/level-4-music-a4865790e9.mp3
+   assets/level-5-music-a8fcfe737c.mp3
+   assets/outro-music-3dc20cb770.mp3
 
-Otvoriť /exec adresu v anonymnom okne bez prihlásenia musí zobraziť
-GYRUSS TOP 50 a „Leaderboard service is ready.“. Ak sa zobrazí prihlásenie,
-prístup ešte nie je nastavený správne. Ak sa objaví „Leaderboard setup is
-incomplete.“, skontroluj oprávnenia a hlavičky v prvom liste tabuľky:
-RANK | PILOT | BEST SCORE | LEVEL | UPDATED.
+NOVÉ NASADENIE
+Pri úplne novom repozitári nahraj celý obsah balíka vrátane .nojekyll,
+touch-controls.css a leaderboard-config.js. Nastavený Google backend
+očakáva pôvod https://cevan1304.github.io.
+Použi vstupný index.html; campaign.html a outro.html sú vnútorné časti.
 
-Tabuľka môže zostať súkromná. Hráči pristupujú k webovej aplikácii,
-ktorá používa oprávnenia vlastníka tabuľky; nepotrebujú editovať tabuľku.
+ČO SA ZMENILO V HRE
+- Fyzika a kadencia streľby sú rovnaké pri 15/30/60/120 FPS.
+- Zásahy sa vyhodnocujú podľa skutočnej vzdialenosti na obrazovke.
+- Štít má krátku ochranu pred súbežnými zásahmi a nedopĺňa sa automaticky.
+- Náročnosť levelov rastie plynulejšie a nepriateľské salvy sú rozložené v čase.
+- Blízke bonusové planétky sa ľahšie zbierajú; bonus stále padá po 10 zostreloch.
+- Efekty a aktualizácie obrazovky zaťažujú zariadenie menej.
+- Obrázky sú menšie, hudba je stereo AAC-LC vo formáte .m4a.
 
-Súbor leaderboard-config.js už obsahuje tvoju dodanú /exec adresu.
-Ak vytvoríš nové nasadenie s inou adresou, nahraď v tomto súbore iba URL.
-Používaj produkčnú adresu /exec, nie testovaciu /dev.
-Gyruss_Google_Leaderboard.gs je kópia pripraveného serverového kódu pre
-referenciu. Ak už je tento kód nasadený, nemusíš ho znovu vkladať.
-Kód povoľuje herný web s pôvodom https://cevan1304.github.io.
-
-2. NAHRATIE HRY NA GITHUB PAGES
-- Rozbaľ ZIP a do cevan1304/Gyruss nahraj jeho OBSAH: index.html,
-  campaign.html, outro.html, leaderboard-config.js, assets/, .nojekyll
-  a README.txt. Kópiu .gs môžeš ponechať aj v repozitári.
-- index.html musí byť v koreňovom priečinku repozitára. ZIP samotný
-  nenahrávaj ako hru. Priečinok assets obsahuje potrebné obrázky a hudbu.
-- Settings → Pages → Deploy from a branch → main → / (root) → Save.
-- Otvor adresu potvrdenú v Settings → Pages. Očakávaná adresa je
-  https://cevan1304.github.io/Gyruss/; tento balík nepotvrdzuje publikovanie.
-
-3. AKO SA UKLADAJÚ VÝSLEDKY
-- Po smrti, zlyhaní alebo prejdení celej kampane sa odošle celkové skóre:
-  body dokončených levelov plus aktuálny pokus. Súhrn a filmové obrazovky
-  pokračujú bez čakania na Google.
-- Jeden pilot má jeden najlepší výsledok, rovnaké meno bez ohľadu na
-  veľkosť písmen je rovnaký pilot. Spoločná tabuľka uchováva TOP 50.
-- Slabší pokus nenahradí vyšší rekord. Skóre mimo TOP 50 sa v spoločnej
-  tabuľke neuchová. Hra si zároveň zachováva vlastné lokálne TOP 50.
-- Pri výpadku sa neodoslané najlepšie výsledky uložia na zariadení.
-  Fronta uchováva najlepších 50 neodoslaných výsledkov, po jednom na pilota.
-  Pri ďalšom otvorení online hry, obnovení spojenia alebo RETRY SYNC sa
-  odošlú znova. Vymazanie dát stránky odstráni lokálnu zálohu aj frontu.
-- Shared TOP 50 znamená tabuľku načítanú z Google Sheets. Last synced
-  TOP 50 znamená poslednú načítanú kópiu pri výpadku. Local TOP 50 znamená
-  výsledky iba z tohto prehliadača. Neodoslaný výsledok sa nevydáva za
-  potvrdený zápis do spoločnej tabuľky.
-- REFRESH aktualizuje tabuľku. RETRY SYNC skúsi obnoviť spojenie a zápis.
-- Ak je localStorage blokované, lokálne výsledky a fronta zostanú iba
-  počas aktuálnej relácie; upozornenie je zobrazené v rebríčku.
-- Historické výsledky zo starej v7 sa automaticky neposielajú do Google.
-  Lokálna tabuľka z v7 ostáva zachovaná; zdieľajú sa nové ukončené pokusy.
-- Otvorenie cez file:// alebo localhost slúži na lokálny test hry.
-  Spoločný rebríček je nastavený pre uvedenú HTTPS doménu GitHub Pages.
-- V hre ani v repozitári nie sú potrebné heslá ani Google prístupové tokeny.
-
-4. OVERENIE PO PUBLIKOVANÍ
-- V anonymnom okne otvor hru, START → meno pilota → TOP 50.
-  Pätička musí uvádzať Shared TOP 50 · Google Sheets.
-- Odohratý pokus ukonči a skontroluj jeho meno/skóre v tabuľke Google.
-- Na inom zariadení alebo v inom prehliadači otvor TOP 50 a REFRESH.
-  Rovnaký výsledok sa musí zobraziť aj tam.
-- Ak služba neodpovedá, hra pokračuje a výsledok čaká na synchronizáciu.
-
-5. OVLÁDANIE
-Hra funguje iba na šírku. Fullscreen prepína celú obrazovku.
-START → meno pilota → intro / Skip intro → kampaň.
-Klávesnica: šípky = pohyb, medzerník = streľba, A = Auto, W = zbraň,
-Shift = štít, P = pauza. Mobil: tlačidlá na obrazovke.
-Po smrti nasleduje GAME OVER, po piatom leveli outro. Potom súhrn a po
-20 sekundách alebo tlačidlom TOP 50 rebríček. Back to results vráti súhrn.
-
-OVERENIE BALÍKA
-Automatizované testy preverujú klienta a pripravený Apps Script s modelom
-tabuľky: dva zariadenia, uloženie a vyšší/nižší rekord, frontu pri výpadku,
-obnovenie po opätovnom otvorení, bezpečné správy a pôvodné koncové obrazovky.
-Živý zápis do tvojej tabuľky ešte vyžaduje verejný prístup k nasadeniu.
-
-Oficiálne návody:
-https://developers.google.com/apps-script/guides/web
-https://developers.google.com/apps-script/guides/html/communication
-https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
+Google ukladanie používa existujúce nastavenie. Úprava stránky nemaže
+Google rebríček ani lokálne rekordy v prehliadači. Pri výpadku spojenia
+ostáva lokálna záloha a fronta neodoslaných výsledkov.
+Priamy test na fyzickom iPhone ani publikovanie repozitára nie sú súčasťou
+prípravy tohto ZIP-u.
