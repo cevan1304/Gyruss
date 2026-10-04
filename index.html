@@ -174,7 +174,7 @@ outroframe.src='outro.html?v=9';
 
 function launchGame(){if(gameStarted)return;wantsGame=true;pause();if(innerWidth<=innerHeight)return;if(!gameReady){$('message').textContent='Preparing flight…';return}gameStarted=true;$('message').textContent='';gameframe.hidden=false;document.body.classList.add('in-game');gameframe.contentWindow.focus();gameframe.contentWindow.postMessage({type:'gyruss-start',muted:music.muted,playerName,newCampaign:true},'*')}
 addEventListener('message',e=>{if(e.source===gameframe.contentWindow&&e.data?.type==='gyruss-ready'){gameReady=true;if(ready){$('start').disabled=false;$('start').textContent='START'}if(wantsGame)launchGame()}});
-gameframe.src='campaign.html?v=9';
+gameframe.src='campaign.html?v=9.1';
 
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const duration=45,visualDuration=40,interval=3.55,angles=[-3.4,3.7,-2.3,4.1,-4.2,2.6,-2.8,3.4,-3.1,1.8];
